@@ -107,7 +107,9 @@ const modalWindowData = (srcData = "", altData = "") => {
 };
 
 const openModalWindow = (event) => {
-  modalWindowData(event.target.dataset.source, event.target.alt);
+  if (event.target.nodeName === "IMG") {
+    modalWindowData(event.target.dataset.source, event.target.alt);
+  }
 };
 
 const closeModalWindow = (event) => {
