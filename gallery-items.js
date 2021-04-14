@@ -101,8 +101,6 @@ const addNewElements = (arr) => {
 addNewElements(examleGallryArr);
 
 const openModalWindow = (event) => {
-  console.log(event.target.nodeName);
-  console.log("event on: ", event.target);
   lightBoxItem.classList.toggle("is-open");
   lightBoxImage.src = event.target.dataset.source;
   lightBoxImage.alt = event.target.alt;
