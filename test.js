@@ -1,4 +1,4 @@
-const examleGallryArr = [
+const testArr = [
   {
     preview:
       "https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg",
@@ -64,35 +64,8 @@ const examleGallryArr = [
   },
 ];
 
-const galleryContainer = document.querySelector("ul.js-gallery");
+// const newElemLi = document.createElement("li");
+// newElemLi.classList.add("gallery__item111");
+// newElemLi.dataset.source = "ffff";
 
-let galleryElements = [];
-
-const newElentGallery = (original = "#", preview = "#", description = "#") => {
-  const newElemLi = document.createElement("li");
-  newElemLi.classList.add("gallery__item");
-
-  const newElemA = document.createElement("a");
-  newElemA.classList.add("gallery__link");
-  newElemA.href = original;
-
-  const newElemImg = document.createElement("img");
-  newElemImg.classList.add("gallery__image");
-  newElemImg.src = preview;
-  newElemImg.dataset.source = original;
-  newElemImg.alt = description;
-
-  newElemA.appendChild(newElemImg);
-  newElemLi.appendChild(newElemA);
-
-  galleryElements.push(newElemLi);
-};
-
-const addNewElements = (arr) => {
-  arr.forEach((elem) => {
-    newElentGallery(elem.original, elem.preview, elem.description);
-    galleryContainer.append(...galleryElements);
-  });
-};
-
-addNewElements(examleGallryArr);
+// // console.log(newElemLi);
