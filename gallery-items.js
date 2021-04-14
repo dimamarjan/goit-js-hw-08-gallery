@@ -65,6 +65,9 @@ const examleGallryArr = [
 ];
 
 const galleryContainer = document.querySelector("ul.js-gallery");
+const lightBoxItem = document.querySelector("div.lightbox");
+const lightBoxImage = document.querySelector("img.lightbox__image");
+const closeBtn = document.querySelector("button[data-action='close-lightbox']");
 
 let galleryElements = [];
 
@@ -74,7 +77,7 @@ const newElentGallery = (original = "#", preview = "#", description = "#") => {
 
   const newElemA = document.createElement("a");
   newElemA.classList.add("gallery__link");
-  newElemA.href = original;
+  newElemA.href = "#";
 
   const newElemImg = document.createElement("img");
   newElemImg.classList.add("gallery__image");
@@ -96,3 +99,20 @@ const addNewElements = (arr) => {
 };
 
 addNewElements(examleGallryArr);
+
+const openModalWindow = (event) => {
+  console.log(event.target.nodeName);
+  console.log("event on: ", event.target);
+  lightBoxItem.classList.toggle("is-open");
+  lightBoxImage.src = event.target.dataset.source;
+  lightBoxImage.alt = event.target.alt;
+};
+
+const closeModalWindow = () => {
+  lightBoxItem.classList.toggle("is-open");
+  lightBoxImage.src = "";
+  lightBoxImage.alt = "";
+};
+
+galleryContainer.addEventListener("click", openModalWindow);
+closeBtn.addEventListener("click", closeModalWindow);
