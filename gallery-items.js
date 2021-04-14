@@ -106,11 +106,16 @@ const openModalWindow = (event) => {
   lightBoxImage.alt = event.target.alt;
 };
 
-const closeModalWindow = () => {
-  lightBoxItem.classList.toggle("is-open");
-  lightBoxImage.src = "";
-  lightBoxImage.alt = "";
+const closeModalWindow = (event) => {
+  if (
+    event.target.nodeName === "BUTTON" ||
+    event.target.classList.value === "lightbox__overlay"
+  ) {
+    lightBoxItem.classList.toggle("is-open");
+    lightBoxImage.src = "";
+    lightBoxImage.alt = "";
+  }
 };
 
 galleryContainer.addEventListener("click", openModalWindow);
-closeBtn.addEventListener("click", closeModalWindow);
+lightBoxItem.addEventListener("click", closeModalWindow);
