@@ -109,6 +109,8 @@ const modalWindowData = (srcData = "", altData = "") => {
 const openModalWindow = (event) => {
   if (event.target.nodeName === "IMG") {
     modalWindowData(event.target.dataset.source, event.target.alt);
+    lightBoxItem.addEventListener("click", closeModalWindow);
+    galleryContainer.addEventListener("keyup", keyCloseWindow);
   }
 };
 
@@ -118,6 +120,8 @@ const closeModalWindow = (event) => {
     event.target.classList.value === "lightbox__overlay"
   ) {
     modalWindowData();
+    lightBoxItem.removeEventListener("click", closeModalWindow);
+    galleryContainer.removeEventListener("keyup", keyCloseWindow);
   }
 };
 
@@ -128,5 +132,3 @@ const keyCloseWindow = (event) => {
 };
 
 galleryContainer.addEventListener("click", openModalWindow);
-lightBoxItem.addEventListener("click", closeModalWindow);
-galleryContainer.addEventListener("keyup", keyCloseWindow);
