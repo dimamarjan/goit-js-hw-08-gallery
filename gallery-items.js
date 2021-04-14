@@ -100,10 +100,14 @@ const addNewElements = (arr) => {
 
 addNewElements(examleGallryArr);
 
-const openModalWindow = (event) => {
+const modalWindowData = (srcData = "", altData = "") => {
   lightBoxItem.classList.toggle("is-open");
-  lightBoxImage.src = event.target.dataset.source;
-  lightBoxImage.alt = event.target.alt;
+  lightBoxImage.src = srcData;
+  lightBoxImage.alt = altData;
+};
+
+const openModalWindow = (event) => {
+  modalWindowData(event.target.dataset.source, event.target.alt);
 };
 
 const closeModalWindow = (event) => {
@@ -111,11 +115,16 @@ const closeModalWindow = (event) => {
     event.target.nodeName === "BUTTON" ||
     event.target.classList.value === "lightbox__overlay"
   ) {
-    lightBoxItem.classList.toggle("is-open");
-    lightBoxImage.src = "";
-    lightBoxImage.alt = "";
+    modalWindowData();
+  }
+};
+
+const keyCloseWindow = (event) => {
+  if (event.key === "Escape") {
+    modalWindowData();
   }
 };
 
 galleryContainer.addEventListener("click", openModalWindow);
 lightBoxItem.addEventListener("click", closeModalWindow);
+galleryContainer.addEventListener("keyup", keyCloseWindow);
