@@ -67,7 +67,6 @@ const examleGallryArr = [
 const galleryContainer = document.querySelector("ul.js-gallery");
 const lightBoxItem = document.querySelector("div.lightbox");
 const lightBoxImage = document.querySelector("img.lightbox__image");
-const closeBtn = document.querySelector("button[data-action='close-lightbox']");
 
 let galleryElements = [];
 
@@ -77,7 +76,7 @@ const newElentGallery = (original = "#", preview = "#", description = "#") => {
 
   const newElemA = document.createElement("a");
   newElemA.classList.add("gallery__link");
-  newElemA.href = "#";
+  newElemA.href = original;
 
   const newElemImg = document.createElement("img");
   newElemImg.classList.add("gallery__image");
@@ -108,6 +107,7 @@ const modalWindowData = (srcData = "", altData = "") => {
 
 const openModalWindow = (event) => {
   if (event.target.nodeName === "IMG") {
+    event.preventDefault();
     modalWindowData(event.target.dataset.source, event.target.alt);
     lightBoxItem.addEventListener("click", closeModalWindow);
     galleryContainer.addEventListener("keyup", keyCloseWindow);
@@ -128,6 +128,32 @@ const closeModalWindow = (event) => {
 const keyCloseWindow = (event) => {
   if (event.key === "Escape") {
     modalWindowData();
+    lightBoxItem.removeEventListener("click", closeModalWindow);
+    galleryContainer.removeEventListener("keyup", keyCloseWindow);
+    return;
+  }
+  const allImgs = document.querySelectorAll(".js-gallery .gallery__image");
+  const currentModalImg = document.querySelector(".lightbox__image");
+  const indexOfElementArr = [...allImgs]
+    .map((element) => element.alt)
+    .indexOf(currentModalImg.alt);
+  if (event.key === "ArrowRight") {
+    if (indexOfElementArr < allImgs.length - 1) {
+      lightBoxImage.src = allImgs[indexOfElementArr + 1].dataset.source;
+      lightBoxImage.alt = allImgs[indexOfElementArr + 1].alt;
+    } else {
+      lightBoxImage.src = allImgs[0].dataset.source;
+      lightBoxImage.alt = allImgs[0].alt;
+    }
+  }
+  if (event.key === "ArrowLeft") {
+    if (indexOfElementArr > 0) {
+      lightBoxImage.src = allImgs[indexOfElementArr - 1].dataset.source;
+      lightBoxImage.alt = allImgs[indexOfElementArr - 1].alt;
+    } else {
+      lightBoxImage.src = allImgs[allImgs.length - 1].dataset.source;
+      lightBoxImage.alt = allImgs[allImgs.length - 1].alt;
+    }
   }
 };
 
